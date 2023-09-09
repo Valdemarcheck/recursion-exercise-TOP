@@ -1,10 +1,3 @@
-function log(text) {
-  const body = document.querySelector("body");
-  const p = document.createElement("p");
-  p.textContent = text;
-  body.appendChild(p);
-}
-
 function fibs(n) {
   let a = 0;
   let b = 1;
@@ -31,5 +24,38 @@ function fibsRec(n) {
   }
 }
 
-console.log(fibs(8));
-console.log(fibsRec(8));
+function mergeSort(array) {
+  if (array.length === 1) {
+    return array;
+  } else {
+    const middle = Math.floor(array.length / 2);
+
+    const leftHalf = array.slice(0, middle);
+    const rightHalf = array.slice(middle);
+
+    const leftHalfSorted = mergeSort(leftHalf);
+    const rightHalfSorted = mergeSort(rightHalf);
+
+    return sort(leftHalfSorted, rightHalfSorted);
+  }
+}
+
+function sort(left, right) {
+  let sorted = [];
+  let hasElementsToSort = true;
+
+  while (true) {
+    const leftFirst = left[0];
+    const rightFirst = right[0];
+    hasElementsToSort = leftFirst != undefined || rightFirst != undefined;
+    if (!hasElementsToSort) break;
+
+    if (leftFirst < rightFirst || rightFirst == undefined) {
+      sorted.push(left.shift());
+    } else {
+      sorted.push(right.shift());
+    }
+  }
+
+  return sorted;
+}
